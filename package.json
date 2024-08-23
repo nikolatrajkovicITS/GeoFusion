@@ -12,6 +12,9 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.7",
     "@react-google-maps/api": "^2.19.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
