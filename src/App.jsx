@@ -1,9 +1,7 @@
 
 function App() {
   return (
-      <p className="read-the-docs">
-        App js
-      </p>
+      <p>Hello World</p>
   )
 }
 
