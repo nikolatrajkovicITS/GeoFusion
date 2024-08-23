@@ -20,13 +20,11 @@ const TYPOGRAPHY = {
     fontSize: 16,
     fontWeight: 500,
     lineHeight: '24px',
-    textAlign: 'center',
   },
   bodyXS: {
     fontSize: 14,
     fontWeight: 500,
     lineHeight: '20px',
-    textAlign: 'left',
   },
   robotoBold: {
     fontFamily: 'Roboto',
@@ -43,31 +41,20 @@ const TYPOGRAPHY = {
     fontSize: 16,
     fontWeight: 600,
     lineHeight: '24px',
-    textAlign: 'left',
   },
   bodyXSSemibold: {
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '20px',
-    textAlign: 'center',
   },
   bodyL: {
     fontSize: 20,
     fontWeight: 500,
     lineHeight: '32px',
-    textAlign: 'left',
   },
 };
 
 const COMPONENT_OVERRIDES = {
-  MuiTableHead: {
-    styleOverrides: {
-      root: {
-        backgroundColor: COLORS.backgroundPaper,
-        color: COLORS.textPrimary,
-      },
-    },
-  },
   MuiTab: {
     styleOverrides: {
       root: {
