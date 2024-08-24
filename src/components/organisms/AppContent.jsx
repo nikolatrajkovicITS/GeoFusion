@@ -1,7 +1,7 @@
 import React from 'react';
 import useAppState from '@/hooks/useAppState';
 import { useTranslation } from '@/hooks/useTranslation';
-import { POLYGON, MARKER } from '@/constants';
+import { POLYGON, MARKER, EDITING_MODES } from '@/constants';
 
 function AppContent() {
   const { t } = useTranslation();
@@ -20,10 +20,12 @@ function AppContent() {
       <h2>
         {t('editingMode')}: {editingMode.mode}
       </h2>
-      <button onClick={() => setEditingMode(POLYGON)}>
+      <button onClick={() => setEditingMode(EDITING_MODES.POLYGON)}>
         {t('editPolygons')}
       </button>
-      <button onClick={() => setEditingMode(MARKER)}>{t('editMarkers')}</button>
+      <button onClick={() => setEditingMode(EDITING_MODES.MARKER)}>
+        {t('editMarkers')}
+      </button>
 
       <h2>{t('polygons')}:</h2>
       <ul>
@@ -31,9 +33,7 @@ function AppContent() {
           <li key={poly.id}>
             {poly.name} -
             <button
-              onClick={() =>
-                setSelectedItem({ type: ITEM_TYPES.POLYGON, id: poly.id })
-              }
+              onClick={() => setSelectedItem({ type: POLYGON, id: poly.id })}
             >
               {t('select')}
             </button>
@@ -47,9 +47,7 @@ function AppContent() {
           <li key={marker.id}>
             {marker.name} -
             <button
-              onClick={() =>
-                setSelectedItem({ type: ITEM_TYPES.MARKER, id: marker.id })
-              }
+              onClick={() => setSelectedItem({ type: MARKER, id: marker.id })}
             >
               {t('select')}
             </button>
