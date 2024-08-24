@@ -1,21 +1,15 @@
 import React from 'react';
-import { Button, Container,  } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import ThemeRegistry from '@styles/ThemeRegistry';
+import ThemeRegistry from '@/styles/ThemeRegistry';
+import AppContent from '@/components/organisms/AppContent';
+import AppState from '@/context/AppState';
 
 function App() {
   return (
     <ThemeRegistry>
-      <Container>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-        >
-          Add Item
-        </Button>
-      </Container>
-      </ThemeRegistry>
+      <AppState>
+        <AppContent />
+      </AppState>
+    </ThemeRegistry>
   );
 }
 

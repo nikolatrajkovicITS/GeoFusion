@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from '@styles/theme';
+import theme from '@/styles/theme';
 
 function ThemeRegistry({ children }) {
   return (
