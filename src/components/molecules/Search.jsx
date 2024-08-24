@@ -4,15 +4,35 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import debounce from 'lodash.debounce';
 import useAppState from '@/hooks/useAppState';
+import { styled } from '@mui/material/styles';
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.shape.borderRadius,
+    '& fieldset': {
+      borderColor: theme.palette.divider,
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.action.hover,
+    },
+  },
+  '& .MuiOutlinedInput-input': {
+    padding: theme.spacing(1.25, 0),
+    minHeight: '56px',
+    boxSizing: 'border-box',
+  },
+  '& .MuiOutlinedInput-adornedEnd': {
+    paddingRight: 0,
+  },
+}));
 
 const Search = React.memo(({ placeholder = 'Search...' }) => {
   const { setSearchTerm } = useAppState();
   const [localSearchTerm, setLocalSearchTerm] = useState('');
 
   const debouncedSearch = useCallback(
-    debounce(term => {
-      setSearchTerm(term);
-    }, 300),
+    debounce(term => setSearchTerm(term), 300),
     [setSearchTerm]
   );
 
@@ -31,7 +51,7 @@ const Search = React.memo(({ placeholder = 'Search...' }) => {
   }, [debouncedSearch]);
 
   return (
-    <TextField
+    <StyledTextField
       fullWidth
       variant="outlined"
       value={localSearchTerm}
@@ -40,7 +60,7 @@ const Search = React.memo(({ placeholder = 'Search...' }) => {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon aria-label="search icon" color="action" />
+            <SearchIcon sx={{ color: 'text.secondary' }} />
           </InputAdornment>
         ),
         endAdornment: localSearchTerm && (

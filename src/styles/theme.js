@@ -12,6 +12,7 @@ const COLORS = {
   actionHover: '#D898FF',
   infoMain: '#D898FF',
   divider: '#EBF0F8',
+  white: '#FFFFFF',
 };
 
 const TYPOGRAPHY = {
@@ -88,6 +89,9 @@ const theme = createTheme({
     text: {
       primary: COLORS.textPrimary,
       secondary: COLORS.textSecondary,
+    },
+    common: {
+      white: COLORS.white,
     },
     background: {
       default: COLORS.backgroundDefault,

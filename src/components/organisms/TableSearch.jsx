@@ -1,11 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import {
-  Container,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
+import { List, ListItem, ListItemText, Box } from '@mui/material';
 import Search from '@/components/molecules/Search';
 import useAppState from '@/hooks/useAppState';
 import { POLYGON } from '@/constants';
@@ -32,11 +26,10 @@ const TableSearch = () => {
   );
 
   return (
-    <Container>
-      <Typography variant="h6" gutterBottom>
-        Search {editingMode === POLYGON ? 'Polygons' : 'Markers'}
-      </Typography>
-      <Search />
+    <Box>
+      <Box sx={{ bgcolor: 'secondary.main' }} p={2}>
+        <Search />
+      </Box>
       <List>
         {filteredResults.map(item => (
           <ListItem key={item.id} onClick={() => handleSelectItem(item)}>
@@ -44,7 +37,7 @@ const TableSearch = () => {
           </ListItem>
         ))}
       </List>
-    </Container>
+    </Box>
   );
 };
 
