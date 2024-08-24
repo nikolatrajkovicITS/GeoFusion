@@ -1,60 +1,65 @@
 import React from 'react';
 import useAppState from '@/hooks/useAppState';
+import { useTranslation } from '@/hooks/useTranslation';
+import { POLYGON, MARKER } from '@/constants';
 
 function AppContent() {
+  const { t } = useTranslation();
   const {
     polygons,
     markers,
     editingMode,
     selectedItem,
-    addPolygon,
-    updatePolygon,
-    deletePolygon,
-    addMarker,
-    updateMarker,
-    deleteMarker,
     setEditingMode,
     setSelectedItem,
   } = useAppState();
 
   return (
     <div>
-      <h1>GeoFusion App</h1>
-      <h2>Editing Mode: {editingMode.mode}</h2>
-      <button onClick={() => setEditingMode('polygon')}>Edit Polygons</button>
-      <button onClick={() => setEditingMode('marker')}>Edit Markers</button>
+      <h1>{t('appTitle')}</h1>
+      <h2>
+        {t('editingMode')}: {editingMode.mode}
+      </h2>
+      <button onClick={() => setEditingMode(POLYGON)}>
+        {t('editPolygons')}
+      </button>
+      <button onClick={() => setEditingMode(MARKER)}>{t('editMarkers')}</button>
 
-      <h2>Polygons:</h2>
+      <h2>{t('polygons')}:</h2>
       <ul>
         {polygons.map(poly => (
           <li key={poly.id}>
             {poly.name} -
             <button
-              onClick={() => setSelectedItem({ type: 'polygon', id: poly.id })}
+              onClick={() =>
+                setSelectedItem({ type: ITEM_TYPES.POLYGON, id: poly.id })
+              }
             >
-              Select
+              {t('select')}
             </button>
           </li>
         ))}
       </ul>
 
-      <h2>Markers:</h2>
+      <h2>{t('markers')}:</h2>
       <ul>
         {markers.map(marker => (
           <li key={marker.id}>
             {marker.name} -
             <button
-              onClick={() => setSelectedItem({ type: 'marker', id: marker.id })}
+              onClick={() =>
+                setSelectedItem({ type: ITEM_TYPES.MARKER, id: marker.id })
+              }
             >
-              Select
+              {t('select')}
             </button>
           </li>
         ))}
       </ul>
 
-      <h2>Selected Item:</h2>
+      <h2>{t('selectedItem')}:</h2>
       <p>
-        Type: {selectedItem.type}, ID: {selectedItem.id}
+        {t('type')}: {selectedItem.type}, {t('id')}: {selectedItem.id}
       </p>
     </div>
   );
