@@ -1,42 +1,40 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { InputAdornment, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import debounce from 'lodash.debounce';
+import useAppState from '@/hooks/useAppState';
 
-const Search = React.memo(({ placeholder = 'Search...', onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const Search = React.memo(({ placeholder = 'Search...' }) => {
+  const { setSearchTerm } = useAppState();
+  const [localSearchTerm, setLocalSearchTerm] = useState('');
 
   const debouncedSearch = useCallback(
-    debounce(value => {
-      if (onSearch) {
-        onSearch(value);
-      }
+    debounce(term => {
+      setSearchTerm(term);
     }, 300),
-    [onSearch]
+    [setSearchTerm]
   );
 
   const handleSearch = useCallback(
     event => {
       const newValue = event.target.value;
-      setSearchTerm(newValue);
+      setLocalSearchTerm(newValue);
       debouncedSearch(newValue);
     },
     [debouncedSearch]
   );
 
   const handleClear = useCallback(() => {
-    setSearchTerm('');
-    if (onSearch) {
-      onSearch('');
-    }
-  }, [onSearch]);
+    setLocalSearchTerm('');
+    debouncedSearch('');
+  }, [debouncedSearch]);
 
   return (
     <TextField
       fullWidth
       variant="outlined"
-      value={searchTerm}
+      value={localSearchTerm}
       onChange={handleSearch}
       placeholder={placeholder}
       InputProps={{
@@ -45,7 +43,7 @@ const Search = React.memo(({ placeholder = 'Search...', onSearch }) => {
             <SearchIcon aria-label="search icon" color="action" />
           </InputAdornment>
         ),
-        endAdornment: searchTerm && (
+        endAdornment: localSearchTerm && (
           <InputAdornment position="end">
             <IconButton
               onClick={handleClear}

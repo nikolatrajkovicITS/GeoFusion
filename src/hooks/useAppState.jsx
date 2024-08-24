@@ -65,6 +65,13 @@ const useAppState = () => {
     [dispatch]
   );
 
+  const setSearchTerm = useCallback(
+    term => {
+      dispatch({ type: ActionTypes.SET_SEARCH_TERM, payload: term });
+    },
+    [dispatch]
+  );
+
   return {
     ...state,
     addPolygon,
@@ -75,6 +82,7 @@ const useAppState = () => {
     deleteMarker,
     setEditingMode,
     setSelectedItem,
+    setSearchTerm,
   };
 };
 

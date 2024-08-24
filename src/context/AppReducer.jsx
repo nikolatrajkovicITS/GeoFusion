@@ -40,6 +40,7 @@ export const initialState = {
     type: 'polygon',
     id: null,
   },
+  searchTerm: '',
 };
 
 export const AppReducer = (state, action) => {
@@ -76,6 +77,9 @@ export const AppReducer = (state, action) => {
       return { ...state, editingMode: { mode: action.payload } };
     case ActionTypes.SET_SELECTED_ITEM:
       return { ...state, selectedItem: action.payload };
+    case ActionTypes.SET_SEARCH_TERM:
+      return { ...state, searchTerm: action.payload };
+
     default:
       return state;
   }
