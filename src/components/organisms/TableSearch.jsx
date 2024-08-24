@@ -12,7 +12,6 @@ const TableSearch = () => {
       <Container>
         <Search onSearch={handleSearch} />
       </Container>
-      {/* Rest of your table component */}
     </>
   );
 };
