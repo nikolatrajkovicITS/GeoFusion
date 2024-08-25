@@ -8,4 +8,11 @@ export default {
   select: 'Select',
   selectedItem: 'Selected Item',
   type: 'Type',
+  addPolygon: 'Add Polygon',
+  addMarker: 'Add Marker',
+  name: 'Name',
+  coordinates: 'Coordinates',
+  action: 'Action',
+  edit: 'Edit',
+  delete: 'Delete',
 };

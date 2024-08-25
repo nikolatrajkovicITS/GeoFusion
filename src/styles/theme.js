@@ -56,9 +56,17 @@ const TYPOGRAPHY = {
 };
 
 const COMPONENT_OVERRIDES = {
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        textTransform: 'none',
+      },
+    },
+  },
   MuiTab: {
     styleOverrides: {
       root: {
+        textTransform: 'none',
         color: COLORS.secondary,
         '&.Mui-selected': {
           color: COLORS.primary,
@@ -73,6 +81,13 @@ const COMPONENT_OVERRIDES = {
         '&::placeholder': {
           color: COLORS.textSecondary,
         },
+      },
+    },
+  },
+  MuiTypography: {
+    styleOverrides: {
+      root: {
+        textTransform: 'none',
       },
     },
   },

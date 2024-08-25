@@ -1,11 +1,15 @@
 import React, { useMemo, useCallback } from 'react';
-import { Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Button, List, ListItem, ListItemText } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import Search from '@/components/molecules/Search';
 import Tabs from '@/components/molecules/Tabs';
 import useAppState from '@/hooks/useAppState';
 import { POLYGON } from '@/constants';
+import useTranslation from '@/hooks/useTranslation';
+import MapTable from '@/components/molecules/MapTable';
 
 const TableSearch = () => {
+  const { t } = useTranslation();
   const { polygons, markers, selectedTab, setSelectedItem, searchTerm } =
     useAppState();
 
@@ -20,17 +24,11 @@ const TableSearch = () => {
     [setSelectedItem]
   );
 
-  const displayedItems = useMemo(() => {
-    return filteredResults
-      .filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      .map(item => (
-        <ListItem key={item.id} onClick={() => handleItemClick(item)}>
-          <ListItemText primary={item.name} />
-        </ListItem>
-      ));
-  }, [filteredResults, searchTerm, handleItemClick]);
+  const filteredTableData = useMemo(() => {
+    return filteredResults.filter(item =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [filteredResults, searchTerm]);
 
   return (
     <>
@@ -38,12 +36,25 @@ const TableSearch = () => {
         <Search />
       </Box>
 
-      <Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+        pr={2}
+        pl={2}
+      >
         <Tabs />
-        {/* buttons */}
+        <Button variant="outlined" startIcon={<AddIcon />} sx={{ ml: 2 }}>
+          {t(selectedTab === POLYGON ? 'addPolygon' : 'addMarker')}
+        </Button>
       </Box>
-      {/* table */}
-      <List>{displayedItems}</List>
+      <Box pr={2} pl={2}>
+        <MapTable
+          data={filteredTableData}
+          isPolygonMode={selectedTab === POLYGON}
+        />
+      </Box>
     </>
   );
 };
