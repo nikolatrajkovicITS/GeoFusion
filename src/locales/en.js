@@ -8,5 +8,4 @@ export default {
   select: 'Select',
   selectedItem: 'Selected Item',
   type: 'Type',
-  id: 'ID',
 };

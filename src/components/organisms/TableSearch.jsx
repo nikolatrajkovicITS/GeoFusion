@@ -1,44 +1,51 @@
 import React, { useMemo, useCallback } from 'react';
-import { List, ListItem, ListItemText, Box } from '@mui/material';
+import { Box, List, ListItem, ListItemText } from '@mui/material';
 import Search from '@/components/molecules/Search';
+import Tabs from '@/components/molecules/Tabs';
 import useAppState from '@/hooks/useAppState';
 import { POLYGON } from '@/constants';
 
 const TableSearch = () => {
-  const { polygons, markers, editingMode, setSelectedItem, searchTerm } =
+  const { polygons, markers, selectedTab, setSelectedItem, searchTerm } =
     useAppState();
 
-  const dataToSearch = useMemo(() => {
-    return editingMode === POLYGON ? polygons : markers;
-  }, [editingMode, polygons, markers]);
-
   const filteredResults = useMemo(() => {
-    return dataToSearch.filter(item =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [dataToSearch, searchTerm]);
+    return selectedTab === POLYGON ? polygons : markers;
+  }, [selectedTab, polygons, markers]);
 
-  const handleSelectItem = useCallback(
+  const handleItemClick = useCallback(
     item => {
       setSelectedItem(item);
     },
     [setSelectedItem]
   );
 
+  const displayedItems = useMemo(() => {
+    return filteredResults
+      .filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .map(item => (
+        <ListItem key={item.id} onClick={() => handleItemClick(item)}>
+          <ListItemText primary={item.name} />
+        </ListItem>
+      ));
+  }, [filteredResults, searchTerm, handleItemClick]);
+
   return (
-    <Box>
-      <Box sx={{ bgcolor: 'secondary.main' }} p={2}>
+    <>
+      <Box sx={{ bgcolor: 'secondary.main' }} p={2} mb={2}>
         <Search />
       </Box>
-      <List>
-        {filteredResults.map(item => (
-          <ListItem key={item.id} onClick={() => handleSelectItem(item)}>
-            <ListItemText primary={item.name} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+
+      <Box>
+        <Tabs />
+        {/* buttons */}
+      </Box>
+      {/* table */}
+      <List>{displayedItems}</List>
+    </>
   );
 };
 
-export default TableSearch;
+export default React.memo(TableSearch);

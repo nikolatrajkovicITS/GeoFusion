@@ -51,13 +51,6 @@ const useAppState = () => {
     [dispatch]
   );
 
-  const setEditingMode = useCallback(
-    mode => {
-      dispatch({ type: ActionTypes.SET_EDITING_MODE, payload: mode });
-    },
-    [dispatch]
-  );
-
   const setSelectedItem = useCallback(
     item => {
       dispatch({ type: ActionTypes.SET_SELECTED_ITEM, payload: item });
@@ -72,6 +65,13 @@ const useAppState = () => {
     [dispatch]
   );
 
+  const setSelectedTab = useCallback(
+    tab => {
+      dispatch({ type: ActionTypes.SET_SELECTED_TAB, payload: tab });
+    },
+    [dispatch]
+  );
+
   return {
     ...state,
     addPolygon,
@@ -80,9 +80,9 @@ const useAppState = () => {
     addMarker,
     updateMarker,
     deleteMarker,
-    setEditingMode,
     setSelectedItem,
     setSearchTerm,
+    setSelectedTab,
   };
 };
 

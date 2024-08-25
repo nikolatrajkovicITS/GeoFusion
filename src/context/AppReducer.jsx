@@ -1,4 +1,5 @@
 import { ActionTypes } from '@/context/actionTypes';
+import { POLYGON } from '@/constants';
 
 export const initialState = {
   polygons: [
@@ -33,14 +34,12 @@ export const initialState = {
       coordinate: { lat: 51.507351, lng: -0.127758 },
     },
   ],
-  editingMode: {
-    mode: 'polygon',
-  },
   selectedItem: {
-    type: 'polygon',
+    type: POLYGON,
     id: null,
   },
   searchTerm: '',
+  selectedTab: POLYGON,
 };
 
 export const AppReducer = (state, action) => {
@@ -73,12 +72,12 @@ export const AppReducer = (state, action) => {
         ...state,
         markers: state.markers.filter(marker => marker.id !== action.payload),
       };
-    case ActionTypes.SET_EDITING_MODE:
-      return { ...state, editingMode: { mode: action.payload } };
     case ActionTypes.SET_SELECTED_ITEM:
       return { ...state, selectedItem: action.payload };
     case ActionTypes.SET_SEARCH_TERM:
       return { ...state, searchTerm: action.payload };
+    case ActionTypes.SET_SELECTED_TAB:
+      return { ...state, selectedTab: action.payload };
 
     default:
       return state;
