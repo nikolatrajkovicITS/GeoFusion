@@ -52,9 +52,13 @@ const ActionMenu = ({ onMenuItemClick }) => {
             action: 'delete',
           },
         ].map(({ label, icon, action }) => (
-          <MenuItem key={action} onClick={() => handleItemClick(action)}>
+          <MenuItem
+            key={action}
+            onClick={() => handleItemClick(action)}
+            sx={{ pt: 1, pb: 1 }}
+          >
             {icon}
-            <Typography variant="body2" sx={{ ml: 0.5 }}>
+            <Typography variant="body2" sx={{ ml: 1 }}>
               {label}
             </Typography>
           </MenuItem>

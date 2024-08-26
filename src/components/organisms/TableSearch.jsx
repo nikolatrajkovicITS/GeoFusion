@@ -1,5 +1,5 @@
-import React, { useMemo, useCallback } from 'react';
-import { Box, Button, List, ListItem, ListItemText } from '@mui/material';
+import React, { useMemo, useCallback, useState } from 'react';
+import { Box, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Search from '@/components/molecules/Search';
 import Tabs from '@/components/molecules/Tabs';
@@ -10,8 +10,15 @@ import MapTable from '@/components/molecules/MapTable';
 
 const TableSearch = () => {
   const { t } = useTranslation();
-  const { polygons, markers, selectedTab, setSelectedItem, searchTerm } =
-    useAppState();
+  const {
+    polygons,
+    markers,
+    selectedTab,
+    setSelectedItem,
+    searchTerm,
+    addPolygon,
+  } = useAppState();
+  const [isAdding, setIsAdding] = useState(false);
 
   const filteredResults = useMemo(() => {
     return selectedTab === POLYGON ? polygons : markers;
@@ -30,6 +37,23 @@ const TableSearch = () => {
     );
   }, [filteredResults, searchTerm]);
 
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const handleSaveNewItem = newItem => {
+    if (selectedTab === POLYGON) {
+      addPolygon(newItem);
+    } else {
+      addMarker(newItem);
+    }
+    setIsAdding(false);
+  };
+
+  const handleCancelNewItem = () => {
+    setIsAdding(false);
+  };
+
   return (
     <>
       <Box sx={{ bgcolor: 'secondary.main' }} p={2} mb={2}>
@@ -45,7 +69,12 @@ const TableSearch = () => {
         pl={2}
       >
         <Tabs />
-        <Button variant="outlined" startIcon={<AddIcon />} sx={{ ml: 2 }}>
+        <Button
+          variant="outlined"
+          startIcon={<AddIcon />}
+          sx={{ ml: 2 }}
+          onClick={handleAddNew}
+        >
           {t(selectedTab === POLYGON ? 'addPolygon' : 'addMarker')}
         </Button>
       </Box>
@@ -53,6 +82,9 @@ const TableSearch = () => {
         <MapTable
           data={filteredTableData}
           isPolygonMode={selectedTab === POLYGON}
+          isAdding={isAdding}
+          onSaveNewItem={handleSaveNewItem}
+          onCancelNewItem={handleCancelNewItem}
         />
       </Box>
     </>

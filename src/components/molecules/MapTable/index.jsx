@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Table,
   TableBody,
@@ -9,8 +9,8 @@ import {
   styled,
 } from '@mui/material';
 import useTranslation from '@/hooks/useTranslation';
-import SortIcon from '@mui/icons-material/Sort';
 import ActionMenu from '@/components/molecules/MapTable/ActionMenu';
+import AddPolygon from '@/components/molecules/MapTable/AddPolygon';
 
 const StyledTableCell = styled(TableCell)(({ theme, width, align }) => ({
   ...theme.typography.bodySSemibold,
@@ -19,42 +19,27 @@ const StyledTableCell = styled(TableCell)(({ theme, width, align }) => ({
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  cursor: 'pointer',
+  borderBottom: '1px solid #D5D6E3',
 }));
 
-const MapTable = ({ data, isPolygonMode }) => {
+const MapTable = ({
+  data,
+  isPolygonMode,
+  isAdding,
+  onSaveNewItem,
+  onCancelNewItem,
+}) => {
   const { t } = useTranslation();
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleMenuClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleMenuItemClick = action => {
-    handleClose();
-  };
 
   return (
     <TableContainer>
       <Table>
         <TableHead sx={{ bgcolor: 'background.paper' }}>
           <TableRow>
-            <StyledTableCell width="30%">
-              {t('name')}
-              <SortIcon
-                fontSize="small"
-                sx={{ verticalAlign: 'middle', marginLeft: 1 }}
-              />
-            </StyledTableCell>
+            <StyledTableCell width="30%">{t('name')}</StyledTableCell>
             <StyledTableCell width="50%">
-              {t('coordinates')}
-              <SortIcon
-                fontSize="small"
-                sx={{ verticalAlign: 'middle', marginLeft: 1 }}
-              />
+              {t(isPolygonMode ? 'coordinates' : 'coordinate')}
             </StyledTableCell>
             <StyledTableCell width="20%" align="right">
               {t('action')}
@@ -63,20 +48,39 @@ const MapTable = ({ data, isPolygonMode }) => {
         </TableHead>
         <TableBody>
           {data.map(item => (
-            <TableRow key={item.id}>
+            <TableRow
+              key={item.id}
+              sx={{
+                borderBottom: '1px solid #D5D6E3',
+                '&:hover': {
+                  backgroundColor: 'background.lightPurple',
+                },
+              }}
+            >
               <StyledTableCell width="30%">{item.name}</StyledTableCell>
               <StyledTableCell width="50%">
                 {isPolygonMode
                   ? item.coordinates
                       .map(coord => `(${coord.lat}, ${coord.lng})`)
                       .join(' ')
-                  : `(${item.coordinate.lat}, ${item.coordinate.lng})`}
+                  : `(${item.coordinates?.lat}, ${item.coordinates?.lng})`}
               </StyledTableCell>
               <StyledTableCell width="20%" align="right">
-                <ActionMenu onMenuItemClick={handleMenuItemClick} />
+                <ActionMenu onMenuItemClick={() => {}} />
               </StyledTableCell>
             </TableRow>
           ))}
+          {isAdding && (
+            <TableRow>
+              <TableCell colSpan={3} sx={{ p: 0 }}>
+                <AddPolygon
+                  isPolygonMode={isPolygonMode}
+                  onSave={onSaveNewItem}
+                  onCancel={onCancelNewItem}
+                />
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

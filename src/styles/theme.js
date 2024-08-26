@@ -9,7 +9,7 @@ const COLORS = {
   backgroundPaper: '#EBF0F8',
   backgroundLightPurple: '#F1DAFF',
   backgroundContainer: '#3E4970',
-  actionHover: '#D898FF',
+  actionHover: '#F1DAFF',
   infoMain: '#D898FF',
   divider: '#EBF0F8',
   white: '#FFFFFF',
@@ -110,7 +110,7 @@ const theme = createTheme({
     },
     background: {
       default: COLORS.backgroundDefault,
-      paper: COLORS.backgroundPaper,
+      paper: COLORS.white,
       lightPurple: COLORS.backgroundLightPurple,
       container: COLORS.backgroundContainer,
     },
