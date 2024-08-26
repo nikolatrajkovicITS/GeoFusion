@@ -105,6 +105,9 @@ const AddPolygon = ({ onSave, onCancel }) => {
           value={name}
           onChange={e => setName(e.target.value)}
           fullWidth
+          InputLabelProps={{
+            sx: { typography: 'bodyXS' },
+          }}
         />
 
         <StyledFormControl fullWidth>
@@ -121,6 +124,7 @@ const AddPolygon = ({ onSave, onCancel }) => {
                 },
               },
             }}
+            sx={{ typography: 'bodyXS' }}
           >
             {[3, 4, 5, 6].map(point => (
               <MenuItem
@@ -133,6 +137,7 @@ const AddPolygon = ({ onSave, onCancel }) => {
                   '&:last-child': {
                     borderBottom: 'none',
                   },
+                  typography: 'bodyXS',
                 }}
               >
                 {point} Points

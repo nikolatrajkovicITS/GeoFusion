@@ -57,15 +57,21 @@ const MapTable = ({
                 },
               }}
             >
-              <StyledTableCell width="30%">{item.name}</StyledTableCell>
-              <StyledTableCell width="50%">
+              <StyledTableCell width="30%" sx={{ typography: 'bodyS' }}>
+                {item.name}
+              </StyledTableCell>
+              <StyledTableCell width="50%" sx={{ typography: 'bodyS' }}>
                 {isPolygonMode
                   ? item.coordinates
                       .map(coord => `(${coord.lat}, ${coord.lng})`)
                       .join(' ')
                   : `(${item.coordinates?.lat}, ${item.coordinates?.lng})`}
               </StyledTableCell>
-              <StyledTableCell width="20%" align="right">
+              <StyledTableCell
+                width="20%"
+                align="right"
+                sx={{ typography: 'bodyS' }}
+              >
                 <ActionMenu onMenuItemClick={() => {}} />
               </StyledTableCell>
             </TableRow>

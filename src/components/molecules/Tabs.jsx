@@ -15,8 +15,20 @@ const Tabs = () => {
       onChange={handleTabChange}
       aria-label="management tabs"
     >
-      <Tab label="Polygons management" value={POLYGON} />
-      <Tab label="Markers management" value={MARKER} />
+      <Tab
+        label="Polygons management"
+        value={POLYGON}
+        sx={{
+          typography: 'headingXXS',
+        }}
+      />
+      <Tab
+        label="Markers management"
+        value={MARKER}
+        sx={{
+          typography: 'headingXXS',
+        }}
+      />
     </MuiTabs>
   );
 };

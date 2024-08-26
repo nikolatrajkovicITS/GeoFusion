@@ -72,7 +72,7 @@ const TableSearch = () => {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          sx={{ ml: 2 }}
+          sx={{ ml: 2, typography: 'bodyS' }}
           onClick={handleAddNew}
         >
           {t(selectedTab === POLYGON ? 'addPolygon' : 'addMarker')}
